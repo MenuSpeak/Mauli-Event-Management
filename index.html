@@ -404,7 +404,7 @@
     .cart-content {
       background: var(--surface);
       width: 100%;
-      max-width: 600px;
+      max-width: 800px;
       border-radius: var(--card-radius);
       padding: 20px;
       box-shadow: var(--shadow);
@@ -557,27 +557,24 @@
       background: rgba(255, 255, 255, 0.05);
     }
 
-    .customer-form {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0.01));
-      border-radius: 16px;
-      padding: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.03);
-      box-shadow: 0 8px 24px rgba(2, 6, 23, 0.6);
-      margin: 30px 0;
+    /* Cart Customer Form */
+    .cart-customer-form {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
     }
 
-    .form-title {
+    .cart-form-title {
       font-family: var(--ff-heading);
-      font-size: 22px;
-      margin-bottom: 20px;
+      font-size: 18px;
+      margin-bottom: 16px;
       color: var(--gold2);
-      text-align: center;
     }
 
-    .form-grid {
+    .cart-form-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 16px;
+      gap: 12px;
     }
 
     .form-group {
@@ -612,41 +609,17 @@
       resize: vertical;
     }
 
-    /* Cart Customer Form */
-    .cart-customer-form {
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.03);
-    }
-
-    .cart-form-title {
-      font-family: var(--ff-heading);
-      font-size: 18px;
-      margin-bottom: 16px;
-      color: var(--gold2);
-    }
-
-    .cart-form-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
     @media (min-width: 768px) {
       body {
         padding: 24px;
       }
       
-      .form-grid {
+      .cart-form-grid {
         grid-template-columns: repeat(2, 1fr);
       }
       
       .cart-actions {
         flex-direction: row;
-      }
-      
-      .cart-form-grid {
-        grid-template-columns: repeat(2, 1fr);
       }
       
       .nav-btn {
@@ -677,6 +650,17 @@
 
     .package-section {
       scroll-margin-top: 20px;
+    }
+
+    .info-note {
+      text-align: center;
+      color: var(--muted);
+      font-style: italic;
+      margin: 20px 0;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 8px;
+      border-left: 3px solid var(--gold1);
     }
   </style>
 </head>
@@ -718,6 +702,11 @@
         <circle cx="11" cy="11" r="6" stroke="rgba(255,255,255,0.6)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></circle>
       </svg>
       <input id="search" placeholder="Search packages or menu items..." />
+    </div>
+
+    <!-- Info Note -->
+    <div class="info-note">
+      Select your desired items and proceed to cart to provide event details and place your order.
     </div>
 
     <!-- Main Catering Package -->
@@ -847,48 +836,6 @@
         <!-- Packages will be injected by JS -->
       </div>
     </div>
-
-    <!-- Customer Information Form -->
-    <div class="customer-form">
-      <h3 class="form-title">Event Details</h3>
-      <div class="form-grid">
-        <div class="form-group">
-          <label class="form-label" for="customerName">Your Name</label>
-          <input type="text" id="customerName" class="form-input" placeholder="Enter your full name">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="customerPhone">Phone Number</label>
-          <input type="tel" id="customerPhone" class="form-input" placeholder="Enter your phone number">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="eventDate">Event Date</label>
-          <input type="date" id="eventDate" class="form-input">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="eventType">Event Type</label>
-          <select id="eventType" class="form-select">
-            <option value="">Select event type</option>
-            <option value="wedding">Wedding</option>
-            <option value="corporate">Corporate Event</option>
-            <option value="birthday">Birthday Party</option>
-            <option value="anniversary">Anniversary</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="guestCount">Number of Guests</label>
-          <input type="number" id="guestCount" class="form-input" placeholder="Approximate number of guests">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="eventLocation">Event Location</label>
-          <input type="text" id="eventLocation" class="form-input" placeholder="Venue address">
-        </div>
-        <div class="form-group" style="grid-column: 1 / -1;">
-          <label class="form-label" for="specialRequests">Special Requests</label>
-          <textarea id="specialRequests" class="form-textarea" placeholder="Any dietary restrictions or special requirements..."></textarea>
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- Cart Button -->
@@ -925,20 +872,20 @@
         <h4 class="cart-form-title">Event Details</h4>
         <div class="cart-form-grid">
           <div class="form-group">
-            <label class="form-label" for="cartCustomerName">Your Name</label>
-            <input type="text" id="cartCustomerName" class="form-input" placeholder="Enter your full name">
+            <label class="form-label" for="cartCustomerName">Your Name *</label>
+            <input type="text" id="cartCustomerName" class="form-input" placeholder="Enter your full name" required>
           </div>
           <div class="form-group">
-            <label class="form-label" for="cartCustomerPhone">Phone Number</label>
-            <input type="tel" id="cartCustomerPhone" class="form-input" placeholder="Enter your phone number">
+            <label class="form-label" for="cartCustomerPhone">Phone Number *</label>
+            <input type="tel" id="cartCustomerPhone" class="form-input" placeholder="Enter your phone number" required>
           </div>
           <div class="form-group">
-            <label class="form-label" for="cartEventDate">Event Date</label>
-            <input type="date" id="cartEventDate" class="form-input">
+            <label class="form-label" for="cartEventDate">Event Date *</label>
+            <input type="date" id="cartEventDate" class="form-input" required>
           </div>
           <div class="form-group">
-            <label class="form-label" for="cartEventType">Event Type</label>
-            <select id="cartEventType" class="form-select">
+            <label class="form-label" for="cartEventType">Event Type *</label>
+            <select id="cartEventType" class="form-select" required>
               <option value="">Select event type</option>
               <option value="wedding">Wedding</option>
               <option value="corporate">Corporate Event</option>
@@ -948,12 +895,12 @@
             </select>
           </div>
           <div class="form-group">
-            <label class="form-label" for="cartGuestCount">Number of Guests</label>
-            <input type="number" id="cartGuestCount" class="form-input" placeholder="Approximate number of guests">
+            <label class="form-label" for="cartGuestCount">Number of Guests *</label>
+            <input type="number" id="cartGuestCount" class="form-input" placeholder="Approximate number of guests" required>
           </div>
           <div class="form-group">
-            <label class="form-label" for="cartEventLocation">Event Location</label>
-            <input type="text" id="cartEventLocation" class="form-input" placeholder="Venue address">
+            <label class="form-label" for="cartEventLocation">Event Location *</label>
+            <input type="text" id="cartEventLocation" class="form-input" placeholder="Venue address" required>
           </div>
           <div class="form-group" style="grid-column: 1 / -1;">
             <label class="form-label" for="cartSpecialRequests">Special Requests</label>
@@ -1167,34 +1114,11 @@
     // Toggle cart modal
     cartButton.addEventListener('click', () => {
       cartModal.classList.add('open');
-      syncFormDataToCart();
     });
 
     closeCart.addEventListener('click', () => {
       cartModal.classList.remove('open');
     });
-
-    // Sync form data from main form to cart form
-    function syncFormDataToCart() {
-      document.getElementById('cartCustomerName').value = document.getElementById('customerName').value;
-      document.getElementById('cartCustomerPhone').value = document.getElementById('customerPhone').value;
-      document.getElementById('cartEventDate').value = document.getElementById('eventDate').value;
-      document.getElementById('cartEventType').value = document.getElementById('eventType').value;
-      document.getElementById('cartGuestCount').value = document.getElementById('guestCount').value;
-      document.getElementById('cartEventLocation').value = document.getElementById('eventLocation').value;
-      document.getElementById('cartSpecialRequests').value = document.getElementById('specialRequests').value;
-    }
-
-    // Sync form data from cart form to main form
-    function syncFormDataToMain() {
-      document.getElementById('customerName').value = document.getElementById('cartCustomerName').value;
-      document.getElementById('customerPhone').value = document.getElementById('cartCustomerPhone').value;
-      document.getElementById('eventDate').value = document.getElementById('cartEventDate').value;
-      document.getElementById('eventType').value = document.getElementById('cartEventType').value;
-      document.getElementById('guestCount').value = document.getElementById('cartGuestCount').value;
-      document.getElementById('eventLocation').value = document.getElementById('cartEventLocation').value;
-      document.getElementById('specialRequests').value = document.getElementById('cartSpecialRequests').value;
-    }
 
     // Scroll to section function
     function scrollToSection(sectionId) {
@@ -1316,20 +1240,31 @@
         return;
       }
       
-      // Sync cart form data to main form
-      syncFormDataToMain();
+      const customerName = document.getElementById('cartCustomerName').value.trim();
+      const customerPhone = document.getElementById('cartCustomerPhone').value.trim();
+      const eventDate = document.getElementById('cartEventDate').value;
+      const eventType = document.getElementById('cartEventType').value;
+      const guestCount = document.getElementById('cartGuestCount').value;
+      const eventLocation = document.getElementById('cartEventLocation').value;
       
-      const customerName = document.getElementById('customerName').value.trim();
-      const customerPhone = document.getElementById('customerPhone').value.trim();
-      
-      if (!customerName || !customerPhone) {
-        alert('Please enter your name and phone number');
+      if (!customerName || !customerPhone || !eventDate || !eventType || !guestCount || !eventLocation) {
+        alert('Please fill all required fields marked with *');
         return;
       }
       
       let message = `Hello! I would like to place a catering order:\n\n`;
       message += `Name: ${customerName}\n`;
-      message += `Phone: ${customerPhone}\n\n`;
+      message += `Phone: ${customerPhone}\n`;
+      message += `Event Date: ${eventDate}\n`;
+      message += `Event Type: ${eventType}\n`;
+      message += `Number of Guests: ${guestCount}\n`;
+      message += `Event Location: ${eventLocation}\n\n`;
+      
+      const specialRequests = document.getElementById('cartSpecialRequests').value;
+      if (specialRequests) {
+        message += `Special Requests: ${specialRequests}\n\n`;
+      }
+      
       message += `Order Details:\n`;
       
       // Group items by category
@@ -1350,25 +1285,6 @@
         });
       });
       
-      // Add event details from the form
-      const eventDate = document.getElementById('eventDate').value;
-      const eventType = document.getElementById('eventType').value;
-      const guestCount = document.getElementById('guestCount').value;
-      const eventLocation = document.getElementById('eventLocation').value;
-      const specialRequests = document.getElementById('specialRequests').value;
-      
-      if (eventDate || eventType || guestCount || eventLocation) {
-        message += `\nEvent Details:\n`;
-        if (eventDate) message += `Date: ${eventDate}\n`;
-        if (eventType) message += `Event Type: ${eventType}\n`;
-        if (guestCount) message += `Guests: ${guestCount}\n`;
-        if (eventLocation) message += `Location: ${eventLocation}\n`;
-      }
-      
-      if (specialRequests) {
-        message += `\nSpecial Requests: ${specialRequests}\n`;
-      }
-      
       message += `\nTotal Items: ${document.getElementById('cartTotal').textContent}\n`;
       message += `\nThank you!`;
       
@@ -1384,136 +1300,34 @@
     function createCategoryPackages(categoryItems, categoryName) {
       if (categoryItems.length === 0) return '';
 
-      // For main package, show all items in one package
-      if (categoryName === "MAIN PACKAGES") {
-        return `
-          <div class="package-card platinum" id="${categoryName.toLowerCase()}-platinum">
-            <div class="package-header">
-              <h3 class="package-name">Complete Catering Package</h3>
-              <div class="package-price">Premium Selection</div>
-            </div>
-            <p class="package-desc">Our comprehensive catering package includes all essential items for a perfect event experience</p>
-            
-            <div class="package-items">
-              ${categoryItems.map(item => `
-                <div class="package-item">
-                  <input type="checkbox" id="item-${categoryName.toLowerCase()}-platinum-${item.id}" data-item-id="${item.id}">
-                  <label for="item-${categoryName.toLowerCase()}-platinum-${item.id}" class="item-name">${item.name}</label>
-                </div>
-              `).join('')}
-            </div>
-            
-            <div class="package-actions">
-              <button class="btn-outline" onclick="addSelectedItemsFromSection('${categoryName.toLowerCase()}-platinum')">
-                Add Selected to Cart
-              </button>
-              <button class="btn-primary" onclick="[${categoryItems.map(item => item.id).join(',')}].forEach(id => addItemToCart(id))">
-                Add All Items
-              </button>
-            </div>
+      // For all categories, show all items in one package
+      return `
+        <div class="package-card platinum" id="${categoryName.toLowerCase().replace(' ', '-')}">
+          <div class="package-header">
+            <h3 class="package-name">${categoryName}</h3>
+            <div class="package-price">Complete Selection</div>
           </div>
-        `;
-      }
-
-      // For other categories, divide items into Platinum, Gold, Silver packages
-      const itemCount = categoryItems.length;
-      const platinumItems = categoryItems.slice(0, Math.ceil(itemCount * 0.4));
-      const goldItems = categoryItems.slice(Math.ceil(itemCount * 0.4), Math.ceil(itemCount * 0.7));
-      const silverItems = categoryItems.slice(Math.ceil(itemCount * 0.7));
-
-      const packages = [];
-
-      if (platinumItems.length > 0) {
-        packages.push(`
-          <div class="package-card platinum" id="${categoryName.toLowerCase()}-platinum">
-            <div class="package-header">
-              <h3 class="package-name">${categoryName} - Platinum</h3>
-              <div class="package-price">Premium Selection</div>
-            </div>
-            <p class="package-desc">Complete ${categoryName.toLowerCase()} package with all premium items</p>
-            
-            <div class="package-items">
-              ${platinumItems.map(item => `
-                <div class="package-item">
-                  <input type="checkbox" id="item-${categoryName.toLowerCase()}-platinum-${item.id}" data-item-id="${item.id}">
-                  <label for="item-${categoryName.toLowerCase()}-platinum-${item.id}" class="item-name">${item.name}</label>
-                </div>
-              `).join('')}
-            </div>
-            
-            <div class="package-actions">
-              <button class="btn-outline" onclick="addSelectedItemsFromSection('${categoryName.toLowerCase()}-platinum')">
-                Add Selected to Cart
-              </button>
-              <button class="btn-primary" onclick="[${platinumItems.map(item => item.id).join(',')}].forEach(id => addItemToCart(id))">
-                Add All Items
-              </button>
-            </div>
+          <p class="package-desc">All ${categoryName.toLowerCase()} items available for your event</p>
+          
+          <div class="package-items">
+            ${categoryItems.map(item => `
+              <div class="package-item">
+                <input type="checkbox" id="item-${categoryName.toLowerCase().replace(' ', '-')}-${item.id}" data-item-id="${item.id}">
+                <label for="item-${categoryName.toLowerCase().replace(' ', '-')}-${item.id}" class="item-name">${item.name}</label>
+              </div>
+            `).join('')}
           </div>
-        `);
-      }
-
-      if (goldItems.length > 0) {
-        packages.push(`
-          <div class="package-card gold" id="${categoryName.toLowerCase()}-gold">
-            <div class="package-header">
-              <h3 class="package-name">${categoryName} - Gold</h3>
-              <div class="package-price">Balanced Selection</div>
-            </div>
-            <p class="package-desc">Well-balanced ${categoryName.toLowerCase()} package with popular items</p>
-            
-            <div class="package-items">
-              ${goldItems.map(item => `
-                <div class="package-item">
-                  <input type="checkbox" id="item-${categoryName.toLowerCase()}-gold-${item.id}" data-item-id="${item.id}">
-                  <label for="item-${categoryName.toLowerCase()}-gold-${item.id}" class="item-name">${item.name}</label>
-                </div>
-              `).join('')}
-            </div>
-            
-            <div class="package-actions">
-              <button class="btn-outline" onclick="addSelectedItemsFromSection('${categoryName.toLowerCase()}-gold')">
-                Add Selected to Cart
-              </button>
-              <button class="btn-primary" onclick="[${goldItems.map(item => item.id).join(',')}].forEach(id => addItemToCart(id))">
-                Add All Items
-              </button>
-            </div>
+          
+          <div class="package-actions">
+            <button class="btn-outline" onclick="addSelectedItemsFromSection('${categoryName.toLowerCase().replace(' ', '-')}')">
+              Add Selected to Cart
+            </button>
+            <button class="btn-primary" onclick="[${categoryItems.map(item => item.id).join(',')}].forEach(id => addItemToCart(id))">
+              Add All Items
+            </button>
           </div>
-        `);
-      }
-
-      if (silverItems.length > 0) {
-        packages.push(`
-          <div class="package-card silver" id="${categoryName.toLowerCase()}-silver">
-            <div class="package-header">
-              <h3 class="package-name">${categoryName} - Silver</h3>
-              <div class="package-price">Essential Selection</div>
-            </div>
-            <p class="package-desc">Essential ${categoryName.toLowerCase()} package with must-have items</p>
-            
-            <div class="package-items">
-              ${silverItems.map(item => `
-                <div class="package-item">
-                  <input type="checkbox" id="item-${categoryName.toLowerCase()}-silver-${item.id}" data-item-id="${item.id}">
-                  <label for="item-${categoryName.toLowerCase()}-silver-${item.id}" class="item-name">${item.name}</label>
-                </div>
-              `).join('')}
-            </div>
-            
-            <div class="package-actions">
-              <button class="btn-outline" onclick="addSelectedItemsFromSection('${categoryName.toLowerCase()}-silver')">
-                Add Selected to Cart
-              </button>
-              <button class="btn-primary" onclick="[${silverItems.map(item => item.id).join(',')}].forEach(id => addItemToCart(id))">
-                Add All Items
-              </button>
-            </div>
-          </div>
-        `);
-      }
-
-      return packages.join('');
+        </div>
+      `;
     }
 
     // Render all packages
@@ -1558,7 +1372,6 @@
       
       // Set minimum date to today
       const today = new Date().toISOString().split('T')[0];
-      document.getElementById('eventDate').min = today;
       document.getElementById('cartEventDate').min = today;
     });
 
