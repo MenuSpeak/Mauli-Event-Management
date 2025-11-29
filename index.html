@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mauli Event Management & Catering Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0b0d;
+      --surface: #0f1114;
+      --muted: #9aa0a6;
+      --gold1: #d4af37;
+      --gold2: #ffcc66;
+      --accent: linear-gradient(90deg, var(--gold1), var(--gold2));
+      --glass: rgba(255, 255, 255, 0.03);
+      --card-radius: 16px;
+      --shadow: 0 10px 30px rgba(2, 6, 23, 0.6);
+      --glass-strong: rgba(255, 255, 255, 0.04);
+      --maxw: 1200px;
+      --gap: 20px;
+      --ff-heading: 'Playfair Display', serif;
+      --ff-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(212, 175, 55, 0.06), transparent 6%),
+                  radial-gradient(1000px 500px at 95% 90%, rgba(255, 204, 102, 0.04), transparent 8%),
+                  var(--bg);
+      color: #e8e6e3;
+      font-family: var(--ff-ui);
+      -webkit-font-smoothing: antialiased;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      line-height: 1.5;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1519677100203-a0e668c92439?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+      filter: grayscale(100%) brightness(0.3);
+      opacity: 0.5;
+      z-index: -1;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--maxw);
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap);
+    }
+
+    .cafe-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 20px 0;
+    }
+
+    .cafe-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 800;
+      color: var(--gold1);
+      text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+      line-height: 1;
+      margin-bottom: 5px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .cafe-name::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 2px;
+      background: var(--gold1);
+    }
+
+    .cafe-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--muted);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-top: 10px;
+    }
+
+    .package-navigation {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 30px 0;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      background: linear-gradient(135deg, var(--gold1), var(--gold2));
+      border: none;
+      padding: 12px 20px;
+      border-radius: 50px;
+      color: #0b0b0d;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+      font-size: 14px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+    }
+
+    .nav-btn:active {
+      transform: translateY(-1px);
+    }
+
+    .search-container {
+      background: var(--glass);
+      backdrop-filter: blur(6px);
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .search-container input {
+      background: transparent;
+      border: 0;
+      outline: 0;
+      color: inherit;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    .packages-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin: 30px 0;
+    }
+
+    @media (min-width: 768px) {
+      .packages-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .package-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      border-radius: 16px;
+      padding: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 8px 32px rgba(2, 6, 23, 0.8);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .package-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--accent);
+    }
+
+    .package-card.platinum::before {
+      background: linear-gradient(90deg, #d4af37, #ffcc66, #d4af37);
+    }
+
+    .package-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(2, 6, 23, 0.9);
+    }
+
+    .package-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .package-name {
+      font-family: var(--ff-heading);
+      font-size: clamp(1.5rem, 4vw, 24px);
+      font-weight: 700;
+      color: var(--gold2);
+    }
+
+    .package-price {
+      font-size: clamp(1.25rem, 3vw, 28px);
+      font-weight: 700;
+      color: var(--gold2);
+    }
+
+    .package-desc {
+      color: var(--muted);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .package-items {
+      margin: 20px 0;
+    }
+
+    .package-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.02);
+      transition: all 0.3s ease;
+    }
+
+    .package-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .package-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--gold1);
+    }
+
+    .item-name {
+      flex: 1;
+      font-weight: 500;
+    }
+
+    .package-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--gold1), var(--gold2));
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      color: #0b0b0d;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+      font-size: 14px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      flex: 1;
+      min-width: 140px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--gold1);
+      padding: 12px 20px;
+      border-radius: 8px;
+      color: var(--gold1);
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex: 1;
+      min-width: 140px;
+    }
+
+    .btn-outline:hover {
+      background: rgba(212, 175, 55, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .section-title {
+      font-family: var(--ff-heading);
+      font-size: clamp(1.75rem, 4vw, 28px);
+      margin: 40px 0 20px 0;
+      color: var(--gold2);
+      text-align: center;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* Cart Styles */
+    .cart-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+    }
+
+    .cart-button {
+      background: linear-gradient(90deg, var(--gold1), var(--gold2));
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 30px rgba(212, 175, 55, 0.12);
+      cursor: pointer;
+      position: relative;
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    .cart-button:hover {
+      transform: scale(1.1);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #e74c3c;
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .cart-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(11, 11, 13, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      padding: 16px;
+    }
+
+    .cart-modal.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .cart-content {
+      background: var(--surface);
+      width: 100%;
+      max-width: 600px;
+      border-radius: var(--card-radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      padding-bottom: 12px;
+    }
+
+    .cart-title {
+      font-family: var(--ff-heading);
+      font-size: 22px;
+      margin: 0;
+      color: var(--gold2);
+    }
+
+    .close-cart {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .cart-items {
+      margin-bottom: 20px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .item-info {
+      flex: 1;
+    }
+
+    .item-name {
+      font-weight: 600;
+      margin: 0 0 4px 0;
+      font-size: 15px;
+    }
+
+    .item-quantity {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .quantity-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .quantity {
+      font-weight: 600;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .remove-item {
+      background: transparent;
+      border: none;
+      color: #e74c3c;
+      cursor: pointer;
+      margin-left: 12px;
+      font-size: 18px;
+    }
+
+    .cart-empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 20px 0;
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .total-amount {
+      color: var(--gold2);
+    }
+
+    .cart-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .btn-whatsapp {
+      background: #25D366;
+      border: none;
+      padding: 14px 18px;
+      border-radius: 12px;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-whatsapp:hover {
+      background: #128C7E;
+      transform: translateY(-2px);
+    }
+
+    .btn-clear {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 12px 14px;
+      border-radius: 12px;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-clear:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .customer-form {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0.01));
+      border-radius: 16px;
+      padding: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      box-shadow: 0 8px 24px rgba(2, 6, 23, 0.6);
+      margin: 30px 0;
+    }
+
+    .form-title {
+      font-family: var(--ff-heading);
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: var(--gold2);
+      text-align: center;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .form-input, .form-select, .form-textarea {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      padding: 12px;
+      color: white;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--gold2);
+      box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1);
+    }
+
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    /* Cart Customer Form */
+    .cart-customer-form {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .cart-form-title {
+      font-family: var(--ff-heading);
+      font-size: 18px;
+      margin-bottom: 16px;
+      color: var(--gold2);
+    }
+
+    .cart-form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 768px) {
+      body {
+        padding: 24px;
+      }
+      
+      .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .cart-actions {
+        flex-direction: row;
+      }
+      
+      .cart-form-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .nav-btn {
+        padding: 12px 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .package-actions {
+        flex-direction: column;
+      }
+      
+      .package-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .cart-content {
+        padding: 16px;
+      }
+    }
+
+    .selected-count {
+      color: var(--gold1);
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    .package-section {
+      scroll-margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="cafe-header">
+      <div class="cafe-name">Mauli Event Management</div>
+      <div class="cafe-subtitle">& Catering Services</div>
+      <p style="margin-top: 15px; color: var(--muted); font-size: 18px; max-width: 600px; margin-left: auto; margin-right: auto;">
+        Premium catering services for weddings, corporate events, and special occasions
+      </p>
+    </div>
+
+    <!-- Package Navigation -->
+    <div class="package-navigation">
+      <button class="nav-btn" onclick="scrollToSection('main-packages')">Main Package</button>
+      <button class="nav-btn" onclick="scrollToSection('welcome-drinks')">Welcome Drinks</button>
+      <button class="nav-btn" onclick="scrollToSection('soup')">Soup</button>
+      <button class="nav-btn" onclick="scrollToSection('salad')">Salad</button>
+      <button class="nav-btn" onclick="scrollToSection('live-chat')">Live Chat</button>
+      <button class="nav-btn" onclick="scrollToSection('live-chinese')">Live Chinese</button>
+      <button class="nav-btn" onclick="scrollToSection('main-course')">Main Course</button>
+      <button class="nav-btn" onclick="scrollToSection('live-counters')">Live Counters</button>
+      <button class="nav-btn" onclick="scrollToSection('dal')">Dal</button>
+      <button class="nav-btn" onclick="scrollToSection('rice')">Rice</button>
+      <button class="nav-btn" onclick="scrollToSection('breads')">Breads</button>
+      <button class="nav-btn" onclick="scrollToSection('papad')">Papad</button>
+      <button class="nav-btn" onclick="scrollToSection('namkeen')">Namkeen</button>
+      <button class="nav-btn" onclick="scrollToSection('sweet')">Sweet</button>
+      <button class="nav-btn" onclick="scrollToSection('ice-cream')">Ice Cream</button>
+      <button class="nav-btn" onclick="scrollToSection('mukhwas')">Mukhwas</button>
+    </div>
+
+    <!-- Search -->
+    <div class="search-container">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+        <path d="M21 21l-4.35-4.35" stroke="rgba(255,255,255,0.6)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+        <circle cx="11" cy="11" r="6" stroke="rgba(255,255,255,0.6)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></circle>
+      </svg>
+      <input id="search" placeholder="Search packages or menu items..." />
+    </div>
+
+    <!-- Main Catering Package -->
+    <div id="main-packages" class="package-section">
+      <h2 class="section-title">Complete Catering Package</h2>
+      <div class="packages-grid" id="main-packages-grid">
+        <!-- Package will be injected by JS -->
+      </div>
+    </div>
+
+    <!-- Welcome Drinks Packages -->
+    <div id="welcome-drinks" class="package-section">
+      <h2 class="section-title">Welcome Drinks Packages</h2>
+      <div class="packages-grid" id="welcome-drinks-grid">
+        <!-- Packages will be injected by JS -->
+      </div>
+    </div>
+
+    <!-- Soup Packages -->
+    <div id="soup" class="package-section">
+      <h2 class="section-title">Soup Packages</h2>
+      <div class="packages-grid" id="soup-grid">
+        <!-- Packages will be injected by JS -->
+      </div>
+    </div>
+
+    <!-- Salad Packages -->
+    <div id="salad" class="package-section">
+      <h2 class="section-title">Salad Packages</h2>
+      <div class="packages-grid" id="salad-grid">
+        <!-- Packages will be injected by JS -->
+      </div>
+    </div>
+
+    <!-- Live Chat Packages -->
+    <div id="live-chat" class="package-section">
+      <h2 class="section-title">Live Chat Packages</h2>
+      <div class="packages-grid" id="live-chat-grid">
+        <!-- Packages will be injected by JS -->
+      </div>
+    </div>
+
+    <!-- Live Chinese Packages -->
+    <div id="live-chinese" class="package-section">
+      <h2 class="section-title">Live Chinese Packages</h2>
+      <div class="packages-grid" id="live-chinese-grid">
+        <!-- Packages will be injected by JS -->
+      </div>
+    </div>
+
+    <!-- Main Course Packages -->
+    <div id="main-course" class="package-section">
+      <h2 class="section-title">Main Course Packages</h2>
+      <div class="packages-grid" id="main-course-grid">
+        <!-- Packages will be injected by JS -->
+      </div>
+    </div>
+
+    <!-- Live Counters Packages -->
+    <div id="live-counters" class="package-section">
+      <h2 class="section-title">Live Counters Packages</h2>
+      <div class="packages-grid" id="live-counters-grid">
+        <!-- Packages will be injected by JS -->
+      </div>
+    </div>
+
+    <!-- Dal Packages -->
+    <div id="dal" class="package-section">
+      <h2 class="section-title">Dal Packages</h2>
+      <div class="packages-grid" id="dal-grid">
+        <!-- Packages will be injected by JS -->
+      </div>
+    </div>
+
+    <!-- Rice Packages -->
+    <div id="rice" class="package-section">
+      <h2 class="section-title">Rice Packages</h2>
+      <div class="packages-grid" id="rice-grid">
+        <!-- Packages will be injected by JS -->
+      </div>
+    </div>
+
+    <!-- Breads Packages -->
+    <div id="breads" class="package-section">
+      <h2 class="section-title">Breads Packages</h2>
+      <div class="packages-grid" id="breads-grid">
+        <!-- Packages will be injected by JS -->
+      </div>
+    </div>
+
+    <!-- Papad Packages -->
+    <div id="papad" class="package-section">
+      <h2 class="section-title">Papad Packages</h2>
+      <div class="packages-grid" id="papad-grid">
+        <!-- Packages will be injected by JS -->
+      </div>
+    </div>
+
+    <!-- Namkeen Packages -->
+    <div id="namkeen" class="package-section">
+      <h2 class="section-title">Namkeen Packages</h2>
+      <div class="packages-grid" id="namkeen-grid">
+        <!-- Packages will be injected by JS -->
+      </div>
+    </div>
+
+    <!-- Sweet Packages -->
+    <div id="sweet" class="package-section">
+      <h2 class="section-title">Sweet Packages</h2>
+      <div class="packages-grid" id="sweet-grid">
+        <!-- Packages will be injected by JS -->
+      </div>
+    </div>
+
+    <!-- Ice Cream Packages -->
+    <div id="ice-cream" class="package-section">
+      <h2 class="section-title">Ice Cream Packages</h2>
+      <div class="packages-grid" id="ice-cream-grid">
+        <!-- Packages will be injected by JS -->
+      </div>
+    </div>
+
+    <!-- Mukhwas Packages -->
+    <div id="mukhwas" class="package-section">
+      <h2 class="section-title">Mukhwas Packages</h2>
+      <div class="packages-grid" id="mukhwas-grid">
+        <!-- Packages will be injected by JS -->
+      </div>
+    </div>
+
+    <!-- Customer Information Form -->
+    <div class="customer-form">
+      <h3 class="form-title">Event Details</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="customerName">Your Name</label>
+          <input type="text" id="customerName" class="form-input" placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="customerPhone">Phone Number</label>
+          <input type="tel" id="customerPhone" class="form-input" placeholder="Enter your phone number">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="eventDate">Event Date</label>
+          <input type="date" id="eventDate" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="eventType">Event Type</label>
+          <select id="eventType" class="form-select">
+            <option value="">Select event type</option>
+            <option value="wedding">Wedding</option>
+            <option value="corporate">Corporate Event</option>
+            <option value="birthday">Birthday Party</option>
+            <option value="anniversary">Anniversary</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="guestCount">Number of Guests</label>
+          <input type="number" id="guestCount" class="form-input" placeholder="Approximate number of guests">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="eventLocation">Event Location</label>
+          <input type="text" id="eventLocation" class="form-input" placeholder="Venue address">
+        </div>
+        <div class="form-group" style="grid-column: 1 / -1;">
+          <label class="form-label" for="specialRequests">Special Requests</label>
+          <textarea id="specialRequests" class="form-textarea" placeholder="Any dietary restrictions or special requirements..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Button -->
+  <div class="cart-container">
+    <button class="cart-button" id="cartButton">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <path d="M16 10a4 4 0 0 1-8 0"></path>
+      </svg>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+
+  <!-- Cart Modal -->
+  <div class="cart-modal" id="cartModal">
+    <div class="cart-content">
+      <div class="cart-header">
+        <h3 class="cart-title">Your Catering Order</h3>
+        <button class="close-cart" id="closeCart">&times;</button>
+      </div>
+      
+      <div class="cart-items" id="cartItems">
+        <div class="cart-empty" id="cartEmpty">Your cart is empty</div>
+      </div>
+      
+      <div class="cart-total">
+        <span>Total Items:</span>
+        <span class="total-amount" id="cartTotal">0</span>
+      </div>
+      
+      <!-- Customer Form in Cart -->
+      <div class="cart-customer-form">
+        <h4 class="cart-form-title">Event Details</h4>
+        <div class="cart-form-grid">
+          <div class="form-group">
+            <label class="form-label" for="cartCustomerName">Your Name</label>
+            <input type="text" id="cartCustomerName" class="form-input" placeholder="Enter your full name">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cartCustomerPhone">Phone Number</label>
+            <input type="tel" id="cartCustomerPhone" class="form-input" placeholder="Enter your phone number">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cartEventDate">Event Date</label>
+            <input type="date" id="cartEventDate" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cartEventType">Event Type</label>
+            <select id="cartEventType" class="form-select">
+              <option value="">Select event type</option>
+              <option value="wedding">Wedding</option>
+              <option value="corporate">Corporate Event</option>
+              <option value="birthday">Birthday Party</option>
+              <option value="anniversary">Anniversary</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cartGuestCount">Number of Guests</label>
+            <input type="number" id="cartGuestCount" class="form-input" placeholder="Approximate number of guests">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cartEventLocation">Event Location</label>
+            <input type="text" id="cartEventLocation" class="form-input" placeholder="Venue address">
+          </div>
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label class="form-label" for="cartSpecialRequests">Special Requests</label>
+            <textarea id="cartSpecialRequests" class="form-textarea" placeholder="Any dietary restrictions or special requirements..."></textarea>
+          </div>
+        </div>
+      </div>
+      
+      <div class="cart-actions">
+        <button class="btn-clear" id="clearCart">Clear Cart</button>
+        <button class="btn-whatsapp" id="whatsappOrder">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.864 3.488"/>
+          </svg>
+          Place Order via WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Clean, consistent menu data structure
+    const menuData = [
+  // COMPLETE PACKAGE - Combined Platinum, Gold, and Silver
+  { "id": 1, "category": "COMPLETE PACKAGE", "name": "Welcome Drink", "description": "Refreshing welcome drink served to guests.", "price": null },
+  { "id": 2, "category": "COMPLETE PACKAGE", "name": "Soup", "description": "Hot and tasty soup starter.", "price": null },
+  { "id": 3, "category": "COMPLETE PACKAGE", "name": "Starter", "description": "Delicious starter item.", "price": null },
+  { "id": 4, "category": "COMPLETE PACKAGE", "name": "Chat Counter", "description": "Live chat counter (Pani Puri & Ragda Pattice).", "price": null },
+  { "id": 5, "category": "COMPLETE PACKAGE", "name": "Chinese Item", "description": "Chinese cuisine item.", "price": null },
+  { "id": 6, "category": "COMPLETE PACKAGE", "name": "Boiled Sprouts", "description": "Healthy boiled sprouts.", "price": null },
+  { "id": 7, "category": "COMPLETE PACKAGE", "name": "Salad", "description": "Fresh vegetable salad.", "price": null },
+  { "id": 8, "category": "COMPLETE PACKAGE", "name": "Raita", "description": "Curd based raita.", "price": null },
+  { "id": 9, "category": "COMPLETE PACKAGE", "name": "Sweets (Milk / Ghee Base)", "description": "Milk and ghee based sweet dishes.", "price": null },
+  { "id": 10, "category": "COMPLETE PACKAGE", "name": "Main Course", "description": "Main course dishes.", "price": null },
+  { "id": 11, "category": "COMPLETE PACKAGE", "name": "Breads", "description": "Fulka, Puri, Bhakri or Laccha Paratha.", "price": null },
+  { "id": 12, "category": "COMPLETE PACKAGE", "name": "Rice Items", "description": "Jeera rice and Biryani.", "price": null },
+  { "id": 13, "category": "COMPLETE PACKAGE", "name": "Dal / Kadhi", "description": "Traditional dal or kadhi.", "price": null },
+  { "id": 14, "category": "COMPLETE PACKAGE", "name": "Namkeen", "description": "Crunchy namkeen snacks.", "price": null },
+  { "id": 15, "category": "COMPLETE PACKAGE", "name": "Ice Cream", "description": "Chilled ice cream dessert.", "price": null },
+  { "id": 16, "category": "COMPLETE PACKAGE", "name": "Water Bottle", "description": "Drinking water bottle.", "price": null },
+  { "id": 17, "category": "COMPLETE PACKAGE", "name": "Mukhwas", "description": "Mouth freshener.", "price": null },
+  { "id": 18, "category": "COMPLETE PACKAGE", "name": "Milk Sweet with Ice Cream", "description": "Milk-based sweet with ice cream.", "price": null },
+  { "id": 19, "category": "COMPLETE PACKAGE", "name": "Rice / Masala Bhat", "description": "Rice or masala bhat.", "price": null },
+  { "id": 20, "category": "COMPLETE PACKAGE", "name": "Papad", "description": "Crispy papad.", "price": null },
+  { "id": 21, "category": "COMPLETE PACKAGE", "name": "Water Jar", "description": "Water jar service.", "price": null },
+
+  // WELCOME DRINKS
+  { "id": 40, "category": "WELCOME DRINKS", "name": "Mocktail", "description": "Refreshing mixed fruit mocktail.", "price": null },
+  { "id": 41, "category": "WELCOME DRINKS", "name": "Litchi Fizz", "description": "Sweet fizzy litchi drink.", "price": null },
+  { "id": 42, "category": "WELCOME DRINKS", "name": "Blue Lagoon", "description": "Chilled blue citrus drink.", "price": null },
+  { "id": 43, "category": "WELCOME DRINKS", "name": "Strawberry Punch", "description": "Punch made with strawberry flavor.", "price": null },
+  { "id": 44, "category": "WELCOME DRINKS", "name": "Pineapple Punch", "description": "Pineapple based welcome drink.", "price": null },
+  { "id": 45, "category": "WELCOME DRINKS", "name": "Kokam Sharbat", "description": "Traditional kokum sharbat.", "price": null },
+  { "id": 46, "category": "WELCOME DRINKS", "name": "Orange Sharbat", "description": "Cool orange flavored sharbat.", "price": null },
+
+  // SOUP
+  { "id": 47, "category": "SOUP", "name": "Lemon Coriander Soup", "description": "Clear soup with lemon and coriander.", "price": null },
+  { "id": 48, "category": "SOUP", "name": "Veg Clear Soup", "description": "Light clear vegetable soup.", "price": null },
+  { "id": 49, "category": "SOUP", "name": "Veg Manchow Soup", "description": "Spicy Indo-Chinese veg soup.", "price": null },
+  { "id": 50, "category": "SOUP", "name": "Hot & Sour Soup", "description": "Spicy and tangy soup.", "price": null },
+  { "id": 51, "category": "SOUP", "name": "Cream of Tomato Soup", "description": "Creamy tomato soup.", "price": null },
+
+  // SALAD
+  { "id": 52, "category": "SALAD", "name": "Green Salad", "description": "Fresh vegetable salad.", "price": null },
+  { "id": 53, "category": "SALAD", "name": "Pizza Mix Salad", "description": "Italian style salad.", "price": null },
+  { "id": 54, "category": "SALAD", "name": "Koshimbir", "description": "Traditional Maharashtrian salad.", "price": null },
+  { "id": 55, "category": "SALAD", "name": "Boondi Raita", "description": "Curd mixed with boondi.", "price": null },
+  { "id": 56, "category": "SALAD", "name": "Boiled Sprouts", "description": "Healthy boiled sprouts.", "price": null },
+  { "id": 57, "category": "SALAD", "name": "Green Chilli Thecha", "description": "Spicy Maharashtrian chutney.", "price": null },
+  { "id": 58, "category": "SALAD", "name": "Red Chilli Losun Chutney", "description": "Dry red chilli garlic chutney.", "price": null },
+
+  // LIVE COUNTER CHAT
+  { "id": 59, "category": "LIVE COUNTER CHAT", "name": "Pani Puri", "description": "Live pani puri counter.", "price": null },
+  { "id": 60, "category": "LIVE COUNTER CHAT", "name": "Shev Puri", "description": "Spicy sev puri.", "price": null },
+  { "id": 61, "category": "LIVE COUNTER CHAT", "name": "Masala Puri", "description": "Puri with spicy topping.", "price": null },
+  { "id": 62, "category": "LIVE COUNTER CHAT", "name": "Dahi Puri", "description": "Crispy puris filled with curd.", "price": null },
+  { "id": 63, "category": "LIVE COUNTER CHAT", "name": "Ragda Patties", "description": "Potato patties with gravy.", "price": null },
+  { "id": 64, "category": "LIVE COUNTER CHAT", "name": "Mumbai Bhel", "description": "Street style bhel.", "price": null },
+
+  // LIVE COUNTER CHINESE
+  { "id": 65, "category": "LIVE COUNTER CHINESE", "name": "Veg Manchurian", "description": "Indo-Chinese starter.", "price": null },
+  { "id": 66, "category": "LIVE COUNTER CHINESE", "name": "Veg Hakka Noodles", "description": "Chinese style noodles.", "price": null },
+  { "id": 67, "category": "LIVE COUNTER CHINESE", "name": "Veg Fried Rice", "description": "Fried rice with vegetables.", "price": null },
+  { "id": 68, "category": "LIVE COUNTER CHINESE", "name": "Paneer Chilly", "description": "Chilli coated paneer.", "price": null },
+  { "id": 69, "category": "LIVE COUNTER CHINESE", "name": "Soyabean Chilly", "description": "Soya chunks in spicy sauce.", "price": null },
+
+  // MAIN COURSE
+  { "id": 70, "category": "MAIN COURSE", "name": "Baingan Bharta", "description": "Smoky mashed brinjal cooked with spices.", "price": null },
+  { "id": 71, "category": "MAIN COURSE", "name": "Rassa Patodi", "description": "Spicy Maharashtrian patodi in gravy.", "price": null },
+  { "id": 72, "category": "MAIN COURSE", "name": "Baingan Masala", "description": "Spicy brinjal cooked in masala.", "price": null },
+  { "id": 73, "category": "MAIN COURSE", "name": "Aloo Mutter Rassa", "description": "Potato and peas curry in gravy.", "price": null },
+  { "id": 74, "category": "MAIN COURSE", "name": "Shevbhaji", "description": "Traditional spicy shev gravy.", "price": null },
+  { "id": 75, "category": "MAIN COURSE", "name": "Usal (Black Masala)", "description": "Sprouts cooked in black masala.", "price": null },
+  { "id": 76, "category": "MAIN COURSE", "name": "Fanas Masala", "description": "Jackfruit cooked with spices.", "price": null },
+  { "id": 77, "category": "MAIN COURSE", "name": "Baingan Batata Rassa", "description": "Brinjal-potato spicy gravy.", "price": null },
+  { "id": 78, "category": "MAIN COURSE", "name": "Aloo Jeera", "description": "Potato tossed in jeera.", "price": null },
+  { "id": 79, "category": "MAIN COURSE", "name": "Veg Kheema", "description": "Veg mince-style spicy curry.", "price": null },
+  { "id": 80, "category": "MAIN COURSE", "name": "Bhendi Masala", "description": "Okra cooked with dry spices.", "price": null },
+  { "id": 81, "category": "MAIN COURSE", "name": "Veg Hydrabadi", "description": "Hyderabadi style mixed veg.", "price": null },
+  { "id": 82, "category": "MAIN COURSE", "name": "Veg Kolhapuri", "description": "Spicy Kolhapuri veg curry.", "price": null },
+  { "id": 83, "category": "MAIN COURSE", "name": "Chole Masala", "description": "Punjabi chole curry.", "price": null },
+  { "id": 84, "category": "MAIN COURSE", "name": "Mutter Paneer Masala", "description": "Paneer and peas cooked in tomato gravy.", "price": null },
+  { "id": 85, "category": "MAIN COURSE", "name": "Veg Handi", "description": "Creamy mixed veg handi.", "price": null },
+  { "id": 86, "category": "MAIN COURSE", "name": "Paneer Tikka Masala", "description": "Tandoori paneer in rich gravy.", "price": null },
+  { "id": 87, "category": "MAIN COURSE", "name": "Paneer Lababdar", "description": "Creamy tomato-based paneer.", "price": null },
+  { "id": 88, "category": "MAIN COURSE", "name": "Paneer Angara", "description": "Smoky spicy paneer curry.", "price": null },
+  { "id": 89, "category": "MAIN COURSE", "name": "Kaju Karela", "description": "Cashew bitter gourd masala.", "price": null },
+  { "id": 90, "category": "MAIN COURSE", "name": "Palak Paneer", "description": "Paneer cooked in spinach gravy.", "price": null },
+  { "id": 91, "category": "MAIN COURSE", "name": "Veg Diwani Handi", "description": "Rich veg handi cooked with cream.", "price": null },
+  { "id": 92, "category": "MAIN COURSE", "name": "Kaju Masala", "description": "Cashew-rich curry.", "price": null },
+  { "id": 93, "category": "MAIN COURSE", "name": "Mix Veg", "description": "Mixed vegetables curry.", "price": null },
+  { "id": 94, "category": "MAIN COURSE", "name": "Tawa Veg", "description": "Tawa roasted vegetables.", "price": null },
+  { "id": 95, "category": "MAIN COURSE", "name": "Rajma Masala", "description": "Kidney beans gravy.", "price": null },
+  { "id": 96, "category": "MAIN COURSE", "name": "Chavli Masala", "description": "Black eyed beans curry.", "price": null },
+
+  // LIVE COUNTER
+  { "id": 97, "category": "LIVE COUNTER", "name": "Fresh Fruits", "description": "Live fruit counter.", "price": null },
+  { "id": 98, "category": "LIVE COUNTER", "name": "Pav Bhaji", "description": "Live pav bhaji counter.", "price": null },
+  { "id": 99, "category": "LIVE COUNTER", "name": "South Indian", "description": "Live dosa/idli counter.", "price": null },
+  { "id": 100, "category": "LIVE COUNTER", "name": "Pizza Pasta", "description": "Live pizza & pasta counter.", "price": null },
+
+  // DAL
+  { "id": 101, "category": "DAL", "name": "Dal Palak", "description": "Spinach cooked with lentils.", "price": null },
+  { "id": 102, "category": "DAL", "name": "Dal Makhani", "description": "Creamy buttery black lentil curry.", "price": null },
+  { "id": 103, "category": "DAL", "name": "Dal Fry", "description": "Yellow dal tempered with spices.", "price": null },
+  { "id": 104, "category": "DAL", "name": "Dal Tadka", "description": "Dal with garlic & ghee tempering.", "price": null },
+  { "id": 105, "category": "DAL", "name": "Gujarati Kadhi", "description": "Sweet and tangy kadhi.", "price": null },
+
+  // RICE
+  { "id": 106, "category": "RICE", "name": "Steam Rice", "description": "Plain steamed rice.", "price": null },
+  { "id": 107, "category": "RICE", "name": "Jeera Rice", "description": "Rice tempered with cumin.", "price": null },
+  { "id": 108, "category": "RICE", "name": "Veg Pulav", "description": "Vegetable flavored rice.", "price": null },
+  { "id": 109, "category": "RICE", "name": "Tomato Rice", "description": "Tangy tomato rice.", "price": null },
+  { "id": 110, "category": "RICE", "name": "Peas Pulav", "description": "Green peas rice.", "price": null },
+  { "id": 111, "category": "RICE", "name": "Veg Biryani", "description": "Spiced vegetable biryani.", "price": null },
+  { "id": 112, "category": "RICE", "name": "Masala Bhat", "description": "Traditional Maharashtrian rice.", "price": null },
+
+  // BREADS
+  { "id": 113, "category": "BREADS", "name": "Ghee Fulka", "description": "Soft roti with ghee.", "price": null },
+  { "id": 114, "category": "BREADS", "name": "Punjabi Paratha", "description": "Thick layered bread.", "price": null },
+  { "id": 115, "category": "BREADS", "name": "Lachha Paratha", "description": "Crispy flaky paratha.", "price": null },
+  { "id": 116, "category": "BREADS", "name": "Puri (Plain/Masala/Palak)", "description": "Deep fried puffed bread.", "price": null },
+  { "id": 117, "category": "BREADS", "name": "Bhakri (Jawar / Bajra)", "description": "Traditional thick roti.", "price": null },
+
+  // PAPAD
+  { "id": 118, "category": "PAPAD", "name": "Papad", "description": "Plain crispy papad.", "price": null },
+  { "id": 119, "category": "PAPAD", "name": "Nagli Disco Papad", "description": "Finger style ragi papad.", "price": null },
+  { "id": 120, "category": "PAPAD", "name": "Chivda Papad", "description": "Crunchy chivda papad.", "price": null },
+  { "id": 121, "category": "PAPAD", "name": "Udid Papad", "description": "Classic urad dal papad.", "price": null },
+  { "id": 122, "category": "PAPAD", "name": "Ponga Papad", "description": "Special fried papad.", "price": null },
+
+  // NAMKEEN
+  { "id": 123, "category": "NAMKEEN", "name": "Moong Bhajiya", "description": "Crispy moong fritters.", "price": null },
+  { "id": 124, "category": "NAMKEEN", "name": "Batata Vada Mini", "description": "Mini potato fritters.", "price": null },
+  { "id": 125, "category": "NAMKEEN", "name": "Mix Bhajiya", "description": "Assorted veg fritters.", "price": null },
+  { "id": 126, "category": "NAMKEEN", "name": "Dhokla", "description": "Soft steamed snack.", "price": null },
+  { "id": 127, "category": "NAMKEEN", "name": "Kothimbirwadi", "description": "Crispy coriander fritters.", "price": null },
+  { "id": 128, "category": "NAMKEEN", "name": "Aluwadi", "description": "Colocasia leaf rolls.", "price": null },
+  { "id": 129, "category": "NAMKEEN", "name": "Khandvi", "description": "Soft rolled snack.", "price": null },
+
+  // SWEET
+  { "id": 130, "category": "SWEET", "name": "Mohanthal", "description": "Gujarati gram flour sweet.", "price": null },
+  { "id": 131, "category": "SWEET", "name": "Khobra Barfi", "description": "Coconut based sweet.", "price": null },
+  { "id": 132, "category": "SWEET", "name": "Mango Barfi", "description": "Mango flavored sweet.", "price": null },
+  { "id": 133, "category": "SWEET", "name": "Jalebi", "description": "Crispy syrup sweet.", "price": null },
+  { "id": 134, "category": "SWEET", "name": "Boondi Ladoo", "description": "Soft boondi balls.", "price": null },
+  { "id": 135, "category": "SWEET", "name": "Motichur Laddu", "description": "Fine boondi laddoo.", "price": null },
+  { "id": 136, "category": "SWEET", "name": "Balushahi", "description": "Flaky fried sweet.", "price": null },
+  { "id": 137, "category": "SWEET", "name": "Gulab Jamun", "description": "Milk dumplings in syrup.", "price": null },
+  { "id": 138, "category": "SWEET", "name": "Pineapple Shira", "description": "Semolina dessert.", "price": null },
+  { "id": 139, "category": "SWEET", "name": "Moong Dal Shira", "description": "Moong dal halwa.", "price": null },
+  { "id": 140, "category": "SWEET", "name": "Puran Poli", "description": "Sweet stuffed roti.", "price": null },
+  { "id": 141, "category": "SWEET", "name": "Fruit Custard", "description": "Mixed fruit dessert.", "price": null },
+  { "id": 142, "category": "SWEET", "name": "Sitaphal Rabdi", "description": "Custard apple rabdi.", "price": null },
+  { "id": 143, "category": "SWEET", "name": "Angoor Rabdi", "description": "Rabdi with grapes.", "price": null },
+  { "id": 144, "category": "SWEET", "name": "Gulkand Rabdi", "description": "Rose flavored rabdi.", "price": null },
+  { "id": 145, "category": "SWEET", "name": "Dry Fruit Rabdi", "description": "Rabdi with nuts.", "price": null },
+  { "id": 146, "category": "SWEET", "name": "Mango Ras", "description": "Fresh mango pulp.", "price": null },
+  { "id": 147, "category": "SWEET", "name": "Amrakhand", "description": "Mango shrikhand.", "price": null },
+  { "id": 148, "category": "SWEET", "name": "Shrikhand", "description": "Sweetened curd dessert.", "price": null },
+  { "id": 149, "category": "SWEET", "name": "Rajbhog", "description": "Stuffed rasgulla.", "price": null },
+  { "id": 150, "category": "SWEET", "name": "Rasgulla", "description": "Soft spongy sweet.", "price": null },
+
+  // ICE CREAM
+  { "id": 151, "category": "ICE CREAM", "name": "Vanilla", "description": "Classic vanilla ice cream.", "price": null },
+  { "id": 152, "category": "ICE CREAM", "name": "Mango", "description": "Mango delight.", "price": null },
+  { "id": 153, "category": "ICE CREAM", "name": "Pineapple", "description": "Pineapple flavor.", "price": null },
+  { "id": 154, "category": "ICE CREAM", "name": "Strawberry", "description": "Strawberry blast.", "price": null },
+  { "id": 155, "category": "ICE CREAM", "name": "Butterscotch", "description": "Crunchy caramel ice cream.", "price": null },
+  { "id": 156, "category": "ICE CREAM", "name": "Matka Kulfi", "description": "Traditional kulfi.", "price": null },
+  { "id": 157, "category": "ICE CREAM", "name": "Falooda", "description": "Ice cream with falooda.", "price": null },
+
+  // MUKHWAS
+  { "id": 158, "category": "MUKHWAS", "name": "Badi Saunf & Khadi Sakkar", "description": "Sweet & refreshing mouth freshener.", "price": null },
+  { "id": 159, "category": "MUKHWAS", "name": "Masala Paan", "description": "Spiced betel preparation.", "price": null },
+  { "id": 160, "category": "MUKHWAS", "name": "Mix Mukhwas", "description": "Mixed mouth freshener.", "price": null }
+];
+
+    // Cart functionality
+    let cart = [];
+    const cartButton = document.getElementById('cartButton');
+    const cartModal = document.getElementById('cartModal');
+    const closeCart = document.getElementById('closeCart');
+    const cartItems = document.getElementById('cartItems');
+    const cartEmpty = document.getElementById('cartEmpty');
+    const cartCount = document.getElementById('cartCount');
+    const cartTotal = document.getElementById('cartTotal');
+    const clearCart = document.getElementById('clearCart');
+    const whatsappOrder = document.getElementById('whatsappOrder');
+
+    // Toggle cart modal
+    cartButton.addEventListener('click', () => {
+      cartModal.classList.add('open');
+      syncFormDataToCart();
+    });
+
+    closeCart.addEventListener('click', () => {
+      cartModal.classList.remove('open');
+    });
+
+    // Sync form data from main form to cart form
+    function syncFormDataToCart() {
+      document.getElementById('cartCustomerName').value = document.getElementById('customerName').value;
+      document.getElementById('cartCustomerPhone').value = document.getElementById('customerPhone').value;
+      document.getElementById('cartEventDate').value = document.getElementById('eventDate').value;
+      document.getElementById('cartEventType').value = document.getElementById('eventType').value;
+      document.getElementById('cartGuestCount').value = document.getElementById('guestCount').value;
+      document.getElementById('cartEventLocation').value = document.getElementById('eventLocation').value;
+      document.getElementById('cartSpecialRequests').value = document.getElementById('specialRequests').value;
+    }
+
+    // Sync form data from cart form to main form
+    function syncFormDataToMain() {
+      document.getElementById('customerName').value = document.getElementById('cartCustomerName').value;
+      document.getElementById('customerPhone').value = document.getElementById('cartCustomerPhone').value;
+      document.getElementById('eventDate').value = document.getElementById('cartEventDate').value;
+      document.getElementById('eventType').value = document.getElementById('cartEventType').value;
+      document.getElementById('guestCount').value = document.getElementById('cartGuestCount').value;
+      document.getElementById('eventLocation').value = document.getElementById('cartEventLocation').value;
+      document.getElementById('specialRequests').value = document.getElementById('cartSpecialRequests').value;
+    }
+
+    // Scroll to section function
+    function scrollToSection(sectionId) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    // Add item to cart
+    function addItemToCart(itemId) {
+      const item = menuData.find(i => i.id === itemId);
+      if (!item) return;
+
+      const existingItem = cart.find(cartItem => cartItem.id === item.id);
+      
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({
+          id: item.id,
+          name: item.name,
+          quantity: 1,
+          category: item.category
+        });
+      }
+
+      updateCart();
+      alert(`${item.name} added to cart!`);
+    }
+
+    // Add selected items from section
+    function addSelectedItemsFromSection(sectionId) {
+      const checkboxes = document.querySelectorAll(`#${sectionId} input[type="checkbox"]:checked`);
+      
+      if (checkboxes.length === 0) {
+        alert('Please select at least one item');
+        return;
+      }
+
+      checkboxes.forEach(checkbox => {
+        const itemId = parseInt(checkbox.dataset.itemId);
+        addItemToCart(itemId);
+        checkbox.checked = false;
+      });
+    }
+
+    // Remove from cart function
+    function removeFromCart(itemId) {
+      cart = cart.filter(item => item.id !== itemId);
+      updateCart();
+    }
+
+    // Update quantity function
+    function updateQuantity(itemId, change) {
+      const item = cart.find(item => item.id === itemId);
+      
+      if (item) {
+        item.quantity += change;
+        
+        if (item.quantity <= 0) {
+          removeFromCart(itemId);
+        } else {
+          updateCart();
+        }
+      }
+    }
+
+    // Update cart display
+    function updateCart() {
+      // Update cart count
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartCount.textContent = totalItems;
+      
+      // Update cart items
+      if (cart.length === 0) {
+        cartEmpty.style.display = 'block';
+        cartItems.innerHTML = '';
+      } else {
+        cartEmpty.style.display = 'none';
+        
+        let itemsHTML = '';
+        let totalItemsCount = 0;
+        
+        cart.forEach(item => {
+          totalItemsCount += item.quantity;
+          
+          itemsHTML += `
+            <div class="cart-item">
+              <div class="item-info">
+                <div class="item-name">${item.name}</div>
+                <div style="font-size: 12px; color: var(--muted);">From: ${item.category}</div>
+              </div>
+              <div class="item-quantity">
+                <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                <span class="quantity">${item.quantity}</span>
+                <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                <button class="remove-item" onclick="removeFromCart(${item.id})">×</button>
+              </div>
+            </div>
+          `;
+        });
+        
+        cartItems.innerHTML = itemsHTML;
+        cartTotal.textContent = `${totalItemsCount}`;
+      }
+    }
+
+    // Clear cart
+    clearCart.addEventListener('click', () => {
+      cart = [];
+      updateCart();
+    });
+
+    // WhatsApp order function
+    whatsappOrder.addEventListener('click', () => {
+      if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+      }
+      
+      // Sync cart form data to main form
+      syncFormDataToMain();
+      
+      const customerName = document.getElementById('customerName').value.trim();
+      const customerPhone = document.getElementById('customerPhone').value.trim();
+      
+      if (!customerName || !customerPhone) {
+        alert('Please enter your name and phone number');
+        return;
+      }
+      
+      let message = `Hello! I would like to place a catering order:\n\n`;
+      message += `Name: ${customerName}\n`;
+      message += `Phone: ${customerPhone}\n\n`;
+      message += `Order Details:\n`;
+      
+      // Group items by category
+      const categoryGroups = {};
+      cart.forEach(item => {
+        const categoryName = item.category;
+        if (!categoryGroups[categoryName]) {
+          categoryGroups[categoryName] = [];
+        }
+        categoryGroups[categoryName].push(item);
+      });
+      
+      // Add items grouped by category
+      Object.keys(categoryGroups).forEach(categoryName => {
+        message += `\n${categoryName}:\n`;
+        categoryGroups[categoryName].forEach(item => {
+          message += `• ${item.name} - ${item.quantity} portions\n`;
+        });
+      });
+      
+      // Add event details from the form
+      const eventDate = document.getElementById('eventDate').value;
+      const eventType = document.getElementById('eventType').value;
+      const guestCount = document.getElementById('guestCount').value;
+      const eventLocation = document.getElementById('eventLocation').value;
+      const specialRequests = document.getElementById('specialRequests').value;
+      
+      if (eventDate || eventType || guestCount || eventLocation) {
+        message += `\nEvent Details:\n`;
+        if (eventDate) message += `Date: ${eventDate}\n`;
+        if (eventType) message += `Event Type: ${eventType}\n`;
+        if (guestCount) message += `Guests: ${guestCount}\n`;
+        if (eventLocation) message += `Location: ${eventLocation}\n`;
+      }
+      
+      if (specialRequests) {
+        message += `\nSpecial Requests: ${specialRequests}\n`;
+      }
+      
+      message += `\nTotal Items: ${document.getElementById('cartTotal').textContent}\n`;
+      message += `\nThank you!`;
+      
+      // Encode the message for WhatsApp URL
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappURL = `https://wa.me/919284969878?text=${encodedMessage}`;
+      
+      // Open WhatsApp in a new tab
+      window.open(whatsappURL, '_blank');
+    });
+
+    // Create packages for each category
+    function createCategoryPackages(categoryItems, categoryName) {
+      if (categoryItems.length === 0) return '';
+
+      // For main package, show all items in one package
+      if (categoryName === "MAIN PACKAGES") {
+        return `
+          <div class="package-card platinum" id="${categoryName.toLowerCase()}-platinum">
+            <div class="package-header">
+              <h3 class="package-name">Complete Catering Package</h3>
+              <div class="package-price">Premium Selection</div>
+            </div>
+            <p class="package-desc">Our comprehensive catering package includes all essential items for a perfect event experience</p>
+            
+            <div class="package-items">
+              ${categoryItems.map(item => `
+                <div class="package-item">
+                  <input type="checkbox" id="item-${categoryName.toLowerCase()}-platinum-${item.id}" data-item-id="${item.id}">
+                  <label for="item-${categoryName.toLowerCase()}-platinum-${item.id}" class="item-name">${item.name}</label>
+                </div>
+              `).join('')}
+            </div>
+            
+            <div class="package-actions">
+              <button class="btn-outline" onclick="addSelectedItemsFromSection('${categoryName.toLowerCase()}-platinum')">
+                Add Selected to Cart
+              </button>
+              <button class="btn-primary" onclick="[${categoryItems.map(item => item.id).join(',')}].forEach(id => addItemToCart(id))">
+                Add All Items
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      // For other categories, divide items into Platinum, Gold, Silver packages
+      const itemCount = categoryItems.length;
+      const platinumItems = categoryItems.slice(0, Math.ceil(itemCount * 0.4));
+      const goldItems = categoryItems.slice(Math.ceil(itemCount * 0.4), Math.ceil(itemCount * 0.7));
+      const silverItems = categoryItems.slice(Math.ceil(itemCount * 0.7));
+
+      const packages = [];
+
+      if (platinumItems.length > 0) {
+        packages.push(`
+          <div class="package-card platinum" id="${categoryName.toLowerCase()}-platinum">
+            <div class="package-header">
+              <h3 class="package-name">${categoryName} - Platinum</h3>
+              <div class="package-price">Premium Selection</div>
+            </div>
+            <p class="package-desc">Complete ${categoryName.toLowerCase()} package with all premium items</p>
+            
+            <div class="package-items">
+              ${platinumItems.map(item => `
+                <div class="package-item">
+                  <input type="checkbox" id="item-${categoryName.toLowerCase()}-platinum-${item.id}" data-item-id="${item.id}">
+                  <label for="item-${categoryName.toLowerCase()}-platinum-${item.id}" class="item-name">${item.name}</label>
+                </div>
+              `).join('')}
+            </div>
+            
+            <div class="package-actions">
+              <button class="btn-outline" onclick="addSelectedItemsFromSection('${categoryName.toLowerCase()}-platinum')">
+                Add Selected to Cart
+              </button>
+              <button class="btn-primary" onclick="[${platinumItems.map(item => item.id).join(',')}].forEach(id => addItemToCart(id))">
+                Add All Items
+              </button>
+            </div>
+          </div>
+        `);
+      }
+
+      if (goldItems.length > 0) {
+        packages.push(`
+          <div class="package-card gold" id="${categoryName.toLowerCase()}-gold">
+            <div class="package-header">
+              <h3 class="package-name">${categoryName} - Gold</h3>
+              <div class="package-price">Balanced Selection</div>
+            </div>
+            <p class="package-desc">Well-balanced ${categoryName.toLowerCase()} package with popular items</p>
+            
+            <div class="package-items">
+              ${goldItems.map(item => `
+                <div class="package-item">
+                  <input type="checkbox" id="item-${categoryName.toLowerCase()}-gold-${item.id}" data-item-id="${item.id}">
+                  <label for="item-${categoryName.toLowerCase()}-gold-${item.id}" class="item-name">${item.name}</label>
+                </div>
+              `).join('')}
+            </div>
+            
+            <div class="package-actions">
+              <button class="btn-outline" onclick="addSelectedItemsFromSection('${categoryName.toLowerCase()}-gold')">
+                Add Selected to Cart
+              </button>
+              <button class="btn-primary" onclick="[${goldItems.map(item => item.id).join(',')}].forEach(id => addItemToCart(id))">
+                Add All Items
+              </button>
+            </div>
+          </div>
+        `);
+      }
+
+      if (silverItems.length > 0) {
+        packages.push(`
+          <div class="package-card silver" id="${categoryName.toLowerCase()}-silver">
+            <div class="package-header">
+              <h3 class="package-name">${categoryName} - Silver</h3>
+              <div class="package-price">Essential Selection</div>
+            </div>
+            <p class="package-desc">Essential ${categoryName.toLowerCase()} package with must-have items</p>
+            
+            <div class="package-items">
+              ${silverItems.map(item => `
+                <div class="package-item">
+                  <input type="checkbox" id="item-${categoryName.toLowerCase()}-silver-${item.id}" data-item-id="${item.id}">
+                  <label for="item-${categoryName.toLowerCase()}-silver-${item.id}" class="item-name">${item.name}</label>
+                </div>
+              `).join('')}
+            </div>
+            
+            <div class="package-actions">
+              <button class="btn-outline" onclick="addSelectedItemsFromSection('${categoryName.toLowerCase()}-silver')">
+                Add Selected to Cart
+              </button>
+              <button class="btn-primary" onclick="[${silverItems.map(item => item.id).join(',')}].forEach(id => addItemToCart(id))">
+                Add All Items
+              </button>
+            </div>
+          </div>
+        `);
+      }
+
+      return packages.join('');
+    }
+
+    // Render all packages
+    function renderAllPackages() {
+      const categories = {
+        'MAIN PACKAGES': ['COMPLETE PACKAGE'],
+        'WELCOME DRINKS': ['WELCOME DRINKS'],
+        'SOUP': ['SOUP'],
+        'SALAD': ['SALAD'],
+        'LIVE CHAT': ['LIVE COUNTER CHAT'],
+        'LIVE CHINESE': ['LIVE COUNTER CHINESE'],
+        'MAIN COURSE': ['MAIN COURSE'],
+        'LIVE COUNTERS': ['LIVE COUNTER'],
+        'DAL': ['DAL'],
+        'RICE': ['RICE'],
+        'BREADS': ['BREADS'],
+        'PAPAD': ['PAPAD'],
+        'NAMKEEN': ['NAMKEEN'],
+        'SWEET': ['SWEET'],
+        'ICE CREAM': ['ICE CREAM'],
+        'MUKHWAS': ['MUKHWAS']
+      };
+
+      Object.keys(categories).forEach(sectionName => {
+        const gridElement = document.getElementById(`${sectionName.toLowerCase().replace(' ', '-')}-grid`);
+        if (gridElement) {
+          let sectionItems = [];
+          categories[sectionName].forEach(cat => {
+            sectionItems = sectionItems.concat(menuData.filter(item => item.category === cat));
+          });
+          
+          if (sectionItems.length > 0) {
+            gridElement.innerHTML = createCategoryPackages(sectionItems, sectionName);
+          }
+        }
+      });
+    }
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', () => {
+      renderAllPackages();
+      
+      // Set minimum date to today
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('eventDate').min = today;
+      document.getElementById('cartEventDate').min = today;
+    });
+
+    // Make functions available globally
+    window.scrollToSection = scrollToSection;
+    window.addItemToCart = addItemToCart;
+    window.addSelectedItemsFromSection = addSelectedItemsFromSection;
+    window.removeFromCart = removeFromCart;
+    window.updateQuantity = updateQuantity;
+  </script>
+</body>
+</html>
