@@ -176,7 +176,7 @@
 
     @media (min-width: 768px) {
       .packages-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(3, 1fr);
       }
     }
 
@@ -203,6 +203,14 @@
 
     .package-card.platinum::before {
       background: linear-gradient(90deg, #d4af37, #ffcc66, #d4af37);
+    }
+
+    .package-card.gold::before {
+      background: linear-gradient(90deg, #ffd700, #daa520, #ffd700);
+    }
+
+    .package-card.silver::before {
+      background: linear-gradient(90deg, #c0c0c0, #a8a8a8, #c0c0c0);
     }
 
     .package-card:hover {
@@ -677,7 +685,7 @@
 
     <!-- Package Navigation -->
     <div class="package-navigation">
-      <button class="nav-btn" onclick="scrollToSection('main-packages')">Main Package</button>
+      <button class="nav-btn" onclick="scrollToSection('main-packages')">Main Packages</button>
       <button class="nav-btn" onclick="scrollToSection('welcome-drinks')">Welcome Drinks</button>
       <button class="nav-btn" onclick="scrollToSection('soup')">Soup</button>
       <button class="nav-btn" onclick="scrollToSection('salad')">Salad</button>
@@ -709,11 +717,11 @@
       Select your desired items and proceed to cart to provide event details and place your order.
     </div>
 
-    <!-- Main Catering Package -->
+    <!-- Main Catering Packages -->
     <div id="main-packages" class="package-section">
-      <h2 class="section-title">Complete Catering Package</h2>
+      <h2 class="section-title">Main Catering Packages</h2>
       <div class="packages-grid" id="main-packages-grid">
-        <!-- Package will be injected by JS -->
+        <!-- Packages will be injected by JS -->
       </div>
     </div>
 
@@ -924,28 +932,50 @@
   <script>
     // Clean, consistent menu data structure
     const menuData = [
-  // COMPLETE PACKAGE - Combined Platinum, Gold, and Silver
-  { "id": 1, "category": "COMPLETE PACKAGE", "name": "Welcome Drink", "description": "Refreshing welcome drink served to guests.", "price": null },
-  { "id": 2, "category": "COMPLETE PACKAGE", "name": "Soup", "description": "Hot and tasty soup starter.", "price": null },
-  { "id": 3, "category": "COMPLETE PACKAGE", "name": "Starter", "description": "Delicious starter item.", "price": null },
-  { "id": 4, "category": "COMPLETE PACKAGE", "name": "Chat Counter", "description": "Live chat counter (Pani Puri & Ragda Pattice).", "price": null },
-  { "id": 5, "category": "COMPLETE PACKAGE", "name": "Chinese Item", "description": "Chinese cuisine item.", "price": null },
-  { "id": 6, "category": "COMPLETE PACKAGE", "name": "Boiled Sprouts", "description": "Healthy boiled sprouts.", "price": null },
-  { "id": 7, "category": "COMPLETE PACKAGE", "name": "Salad", "description": "Fresh vegetable salad.", "price": null },
-  { "id": 8, "category": "COMPLETE PACKAGE", "name": "Raita", "description": "Curd based raita.", "price": null },
-  { "id": 9, "category": "COMPLETE PACKAGE", "name": "Sweets (Milk / Ghee Base)", "description": "Milk and ghee based sweet dishes.", "price": null },
-  { "id": 10, "category": "COMPLETE PACKAGE", "name": "Main Course", "description": "Main course dishes.", "price": null },
-  { "id": 11, "category": "COMPLETE PACKAGE", "name": "Breads", "description": "Fulka, Puri, Bhakri or Laccha Paratha.", "price": null },
-  { "id": 12, "category": "COMPLETE PACKAGE", "name": "Rice Items", "description": "Jeera rice and Biryani.", "price": null },
-  { "id": 13, "category": "COMPLETE PACKAGE", "name": "Dal / Kadhi", "description": "Traditional dal or kadhi.", "price": null },
-  { "id": 14, "category": "COMPLETE PACKAGE", "name": "Namkeen", "description": "Crunchy namkeen snacks.", "price": null },
-  { "id": 15, "category": "COMPLETE PACKAGE", "name": "Ice Cream", "description": "Chilled ice cream dessert.", "price": null },
-  { "id": 16, "category": "COMPLETE PACKAGE", "name": "Water Bottle", "description": "Drinking water bottle.", "price": null },
-  { "id": 17, "category": "COMPLETE PACKAGE", "name": "Mukhwas", "description": "Mouth freshener.", "price": null },
-  { "id": 18, "category": "COMPLETE PACKAGE", "name": "Milk Sweet with Ice Cream", "description": "Milk-based sweet with ice cream.", "price": null },
-  { "id": 19, "category": "COMPLETE PACKAGE", "name": "Rice / Masala Bhat", "description": "Rice or masala bhat.", "price": null },
-  { "id": 20, "category": "COMPLETE PACKAGE", "name": "Papad", "description": "Crispy papad.", "price": null },
-  { "id": 21, "category": "COMPLETE PACKAGE", "name": "Water Jar", "description": "Water jar service.", "price": null },
+  // PLATINUM PACKAGE (600/-)
+  { "id": 1, "category": "PLATINUM PACKAGE", "name": "02 Welcome Drink", "description": "Two refreshing welcome drinks", "price": 600 },
+  { "id": 2, "category": "PLATINUM PACKAGE", "name": "01 Soup", "description": "One hot and tasty soup starter", "price": 600 },
+  { "id": 3, "category": "PLATINUM PACKAGE", "name": "02 Starter", "description": "Two delicious starter items", "price": 600 },
+  { "id": 4, "category": "PLATINUM PACKAGE", "name": "02 Chat Counter (Pani Puri, Ragda Polis)", "description": "Two live chat counters", "price": 600 },
+  { "id": 5, "category": "PLATINUM PACKAGE", "name": "01 Chinese", "description": "One Chinese cuisine item", "price": 600 },
+  { "id": 6, "category": "PLATINUM PACKAGE", "name": "01 Boiled Sprouts", "description": "One healthy boiled sprouts", "price": 600 },
+  { "id": 7, "category": "PLATINUM PACKAGE", "name": "01 Salad", "description": "One fresh vegetable salad", "price": 600 },
+  { "id": 8, "category": "PLATINUM PACKAGE", "name": "01 Raita", "description": "One curd based raita", "price": 600 },
+  { "id": 9, "category": "PLATINUM PACKAGE", "name": "03 Sweets (Milk, Ghee Base)", "description": "Three milk and ghee based sweet dishes", "price": 600 },
+  { "id": 10, "category": "PLATINUM PACKAGE", "name": "03 Main Course", "description": "Three main course dishes", "price": 600 },
+  { "id": 11, "category": "PLATINUM PACKAGE", "name": "04 Breads (Fulka/Puri/Bhakri/Laccha Paratha)", "description": "Four bread varieties", "price": 600 },
+  { "id": 12, "category": "PLATINUM PACKAGE", "name": "02 Rice (Jeera Rice + Biryani)", "description": "Two rice varieties", "price": 600 },
+  { "id": 13, "category": "PLATINUM PACKAGE", "name": "01 Dal or Kadhi", "description": "One traditional dal or kadhi", "price": 600 },
+  { "id": 14, "category": "PLATINUM PACKAGE", "name": "02 Namkeen", "description": "Two crunchy namkeen snacks", "price": 600 },
+  { "id": 15, "category": "PLATINUM PACKAGE", "name": "01 Ice Cream", "description": "One chilled ice cream dessert", "price": 600 },
+  { "id": 16, "category": "PLATINUM PACKAGE", "name": "Water Bottle", "description": "Drinking water bottle", "price": 600 },
+  { "id": 17, "category": "PLATINUM PACKAGE", "name": "05 Mukhwas", "description": "Five mouth fresheners", "price": 600 },
+
+  // SILVER PACKAGE (300/-)
+  { "id": 18, "category": "SILVER PACKAGE", "name": "02 Main Course", "description": "Two main course dishes", "price": 300 },
+  { "id": 19, "category": "SILVER PACKAGE", "name": "01 Dal or Kadhi", "description": "One dal or kadhi", "price": 300 },
+  { "id": 20, "category": "SILVER PACKAGE", "name": "01 Rice or Masala Bhat", "description": "One rice or masala bhat", "price": 300 },
+  { "id": 21, "category": "SILVER PACKAGE", "name": "02 Breads (Fulka/Puri)", "description": "Two bread varieties", "price": 300 },
+  { "id": 22, "category": "SILVER PACKAGE", "name": "01 Salad or Raita", "description": "One salad or raita", "price": 300 },
+  { "id": 23, "category": "SILVER PACKAGE", "name": "01 Sweet Regular", "description": "One regular sweet dish", "price": 300 },
+  { "id": 24, "category": "SILVER PACKAGE", "name": "01 Namkeen", "description": "One namkeen snack", "price": 300 },
+  { "id": 25, "category": "SILVER PACKAGE", "name": "01 Papad", "description": "One crispy papad", "price": 300 },
+  { "id": 26, "category": "SILVER PACKAGE", "name": "01 Mukhwas", "description": "One mouth freshener", "price": 300 },
+  { "id": 27, "category": "SILVER PACKAGE", "name": "Water Jar", "description": "Water jar service", "price": 300 },
+
+  // GOLD PACKAGE (400/-)
+  { "id": 28, "category": "GOLD PACKAGE", "name": "01 Welcome Drink / Soup", "description": "One welcome drink or soup", "price": 400 },
+  { "id": 29, "category": "GOLD PACKAGE", "name": "01 Starter", "description": "One starter item", "price": 400 },
+  { "id": 30, "category": "GOLD PACKAGE", "name": "01 Milk Base Sweet + Ice Cream", "description": "One milk-based sweet with ice cream", "price": 400 },
+  { "id": 31, "category": "GOLD PACKAGE", "name": "02 Salad or Raita", "description": "Two salad or raita", "price": 400 },
+  { "id": 32, "category": "GOLD PACKAGE", "name": "02 Main Course", "description": "Two main course items", "price": 400 },
+  { "id": 33, "category": "GOLD PACKAGE", "name": "03 Breads (Fulka/Puri)", "description": "Three bread varieties", "price": 400 },
+  { "id": 34, "category": "GOLD PACKAGE", "name": "01 Rice or Masala Bhat", "description": "One rice or masala bhat", "price": 400 },
+  { "id": 35, "category": "GOLD PACKAGE", "name": "01 Dal or Kadhi", "description": "One dal or kadhi", "price": 400 },
+  { "id": 36, "category": "GOLD PACKAGE", "name": "01 Namkeen", "description": "One namkeen snack", "price": 400 },
+  { "id": 37, "category": "GOLD PACKAGE", "name": "03 Papad", "description": "Three crispy papad", "price": 400 },
+  { "id": 38, "category": "GOLD PACKAGE", "name": "Water Bottle", "description": "Drinking water bottle", "price": 400 },
+  { "id": 39, "category": "GOLD PACKAGE", "name": "03 Mukhwas", "description": "Three mouth fresheners", "price": 400 },
 
   // WELCOME DRINKS
   { "id": 40, "category": "WELCOME DRINKS", "name": "Mocktail", "description": "Refreshing mixed fruit mocktail.", "price": null },
@@ -1142,7 +1172,8 @@
           id: item.id,
           name: item.name,
           quantity: 1,
-          category: item.category
+          category: item.category,
+          price: item.price
         });
       }
 
@@ -1300,7 +1331,94 @@
     function createCategoryPackages(categoryItems, categoryName) {
       if (categoryItems.length === 0) return '';
 
-      // For all categories, show all items in one package
+      // For main packages, show three separate packages
+      if (categoryName === "MAIN PACKAGES") {
+        const platinumItems = menuData.filter(item => item.category === "PLATINUM PACKAGE");
+        const silverItems = menuData.filter(item => item.category === "SILVER PACKAGE");
+        const goldItems = menuData.filter(item => item.category === "GOLD PACKAGE");
+
+        return `
+          <div class="package-card platinum" id="platinum-package">
+            <div class="package-header">
+              <h3 class="package-name">Platinum Package</h3>
+              <div class="package-price">₹600/-</div>
+            </div>
+            <p class="package-desc">Premium catering package with comprehensive menu selection</p>
+            
+            <div class="package-items">
+              ${platinumItems.map(item => `
+                <div class="package-item">
+                  <input type="checkbox" id="item-platinum-${item.id}" data-item-id="${item.id}">
+                  <label for="item-platinum-${item.id}" class="item-name">${item.name}</label>
+                </div>
+              `).join('')}
+            </div>
+            
+            <div class="package-actions">
+              <button class="btn-outline" onclick="addSelectedItemsFromSection('platinum-package')">
+                Add Selected to Cart
+              </button>
+              <button class="btn-primary" onclick="[${platinumItems.map(item => item.id).join(',')}].forEach(id => addItemToCart(id))">
+                Add Complete Package
+              </button>
+            </div>
+          </div>
+
+          <div class="package-card gold" id="gold-package">
+            <div class="package-header">
+              <h3 class="package-name">Gold Package</h3>
+              <div class="package-price">₹400/-</div>
+            </div>
+            <p class="package-desc">Balanced catering package with popular menu items</p>
+            
+            <div class="package-items">
+              ${goldItems.map(item => `
+                <div class="package-item">
+                  <input type="checkbox" id="item-gold-${item.id}" data-item-id="${item.id}">
+                  <label for="item-gold-${item.id}" class="item-name">${item.name}</label>
+                </div>
+              `).join('')}
+            </div>
+            
+            <div class="package-actions">
+              <button class="btn-outline" onclick="addSelectedItemsFromSection('gold-package')">
+                Add Selected to Cart
+              </button>
+              <button class="btn-primary" onclick="[${goldItems.map(item => item.id).join(',')}].forEach(id => addItemToCart(id))">
+                Add Complete Package
+              </button>
+            </div>
+          </div>
+
+          <div class="package-card silver" id="silver-package">
+            <div class="package-header">
+              <h3 class="package-name">Silver Package</h3>
+              <div class="package-price">₹300/-</div>
+            </div>
+            <p class="package-desc">Essential catering package with basic menu items</p>
+            
+            <div class="package-items">
+              ${silverItems.map(item => `
+                <div class="package-item">
+                  <input type="checkbox" id="item-silver-${item.id}" data-item-id="${item.id}">
+                  <label for="item-silver-${item.id}" class="item-name">${item.name}</label>
+                </div>
+              `).join('')}
+            </div>
+            
+            <div class="package-actions">
+              <button class="btn-outline" onclick="addSelectedItemsFromSection('silver-package')">
+                Add Selected to Cart
+              </button>
+              <button class="btn-primary" onclick="[${silverItems.map(item => item.id).join(',')}].forEach(id => addItemToCart(id))">
+                Add Complete Package
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      // For other categories, show all items in one package
       return `
         <div class="package-card platinum" id="${categoryName.toLowerCase().replace(' ', '-')}">
           <div class="package-header">
@@ -1333,7 +1451,7 @@
     // Render all packages
     function renderAllPackages() {
       const categories = {
-        'MAIN PACKAGES': ['COMPLETE PACKAGE'],
+        'MAIN PACKAGES': ['PLATINUM PACKAGE', 'SILVER PACKAGE', 'GOLD PACKAGE'],
         'WELCOME DRINKS': ['WELCOME DRINKS'],
         'SOUP': ['SOUP'],
         'SALAD': ['SALAD'],
